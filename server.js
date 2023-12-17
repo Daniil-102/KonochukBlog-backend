@@ -10,7 +10,7 @@ import { logout } from "./controllers/UserController.js"
 import session from "express-session"
 
 
-mongoose.connect('mongodb+srv://admin:12345@cluster0.ljuinnt.mongodb.net/blog?retryWrites=true&w=majority')
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('DB ok'))
 .catch(er => console.log('DB error', er))
 
@@ -60,7 +60,7 @@ app.delete('/posts/:id', checkAuth, remove)
 app.patch('/posts/:id', postCreateValidation, checkAuth, handleValidationErrors, update)
 
 
-app.listen(3002, (err) => {
+app.listen(process.env.PORT || 3002, (err) => {
     if (err) console.log(err)
-    console.log(`server started http://localhost:3002`);
+    console.log(`server started`);
 })
