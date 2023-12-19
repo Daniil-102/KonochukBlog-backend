@@ -4,7 +4,6 @@ const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
 const connectMongoDBSession = require('connect-mongodb-session');
-const bcrypt = require('bcryptjs');
 
 
 const {
