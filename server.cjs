@@ -4,6 +4,7 @@ const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const addUser = require('./operations/add_user');
 
 const {
   registerValidation,
