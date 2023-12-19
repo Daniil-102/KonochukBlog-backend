@@ -32,13 +32,14 @@ const { logout } = require('./controllers/UserController.js');
 const session = require('express-session');
 const PostModel = require('./models/Post.js');
 
-mongoose
-  .connect(process.env.MONGODB_URI)
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    return PostModel.collection.createIndex({ createdAt: -1 });
+    console.log('DB connection successful');
   })
-  .then(() => console.log('DB ok'))
-  .catch((er) => console.log('DB error', er));
+  .catch((err) => {
+    console.error('DB connection error:', err);
+  });
+
 
 const app = express();
 app.use(express.json());
