@@ -4,8 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "babel-node src/server.js",
-    "build": "babel ./ -d dist",
+    "start": "babel-node server.js",
+    "build": "babel src -d dist",
     "postinstall": "npm rebuild bcrypt --build-from-source"
   },
   "engines": {
