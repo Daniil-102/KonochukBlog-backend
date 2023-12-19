@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
-const session = require('express-session'); // Move this line up
+const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
 const {
@@ -42,9 +42,9 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     console.error('DB connection error:', err);
   });
 
-
 const app = express();
 app.use(express.json());
+
 app.use(
   session({
     secret: 'secret123',
