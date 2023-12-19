@@ -35,7 +35,7 @@ const {
 const { logout } = require('./controllers/UserController.js');
 const PostModel = require('./models/Post.js');
 
-mongoose.connect('mongodb+srv://admin:12345@cluster0.ljuinnt.mongodb.net/blog?retryWrites=true&w=majority',
+mongoose.connect(process.env.MONGODB_URI,
  { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 5000 })
   .then(() => {
     console.log('DB connection successful');
