@@ -8,12 +8,12 @@ import {handleValidationErrors, checkAuth} from "./utils/index.js"
 import { getByTag, getLastComments, getLastTags, getNew, getPopular } from "./controllers/PostController.js"
 import { logout } from "./controllers/UserController.js"
 import session from "express-session"
+import PostModel from './models/Post.js'
 
 
-mongoose.connect(process.env.MONGODB_URI)
-.then(() => {
-    return PostModel.collection.createIndex({ createdAt: -1 });
-})
+
+mongoose.connect(MONGODB_URI)
+.then(() => { return PostModel.collection.createIndex({ createdAt: -1 }); })
 .then(() => console.log('DB ok'))
 .catch(er => console.log('DB error', er))
 
@@ -63,7 +63,7 @@ app.delete('/posts/:id', checkAuth, remove)
 app.patch('/posts/:id', postCreateValidation, checkAuth, handleValidationErrors, update)
 
 
-app.listen(process.env.PORT || 3002, (err) => {
+app.listen(3003, (err) => {
     if (err) console.log(err)
     console.log(`server started`);
 })
