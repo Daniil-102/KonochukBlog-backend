@@ -12,10 +12,11 @@ import PostModel from './models/Post.js'
 
 
 
-mongoose.connect(MONGODB_URI)
-.then(() => { return PostModel.collection.createIndex({ createdAt: -1 }); })
-.then(() => console.log('DB ok'))
-.catch(er => console.log('DB error', er))
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => { return PostModel.collection.createIndex({ createdAt: -1 }); })
+  .then(() => console.log('DB ok'))
+  .catch(er => console.log('DB error', er));
+
 
 const app = express()
 app.use(express.json())
