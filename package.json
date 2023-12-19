@@ -5,8 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "start": "babel-node server.js",
-    "build": "babel src -d dist"
+    "start": "babel-node server.js"
   },
   "keywords": [],
   "author": "",
