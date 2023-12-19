@@ -11,6 +11,9 @@ import session from "express-session"
 
 
 mongoose.connect(process.env.MONGODB_URI)
+.then(() => {
+    return PostModel.collection.createIndex({ createdAt: -1 });
+})
 .then(() => console.log('DB ok'))
 .catch(er => console.log('DB error', er))
 
@@ -60,7 +63,7 @@ app.delete('/posts/:id', checkAuth, remove)
 app.patch('/posts/:id', postCreateValidation, checkAuth, handleValidationErrors, update)
 
 
-app.listen((process.env.PORT || 3002), (err) => {
+app.listen(process.env.PORT || 3002, (err) => {
     if (err) console.log(err)
     console.log(`server started`);
 })
