@@ -2,7 +2,7 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/server.js",
+  "main": "server.js",
   "scripts": {
     "start": "babel-node src/server.js",
     "build": "babel src -d dist",
