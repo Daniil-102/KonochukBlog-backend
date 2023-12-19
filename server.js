@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
+const session = require('express-session'); // Move this line up
 const MongoStore = require('connect-mongo')(session);
 
 const {
@@ -31,10 +32,9 @@ const {
   getPopular
 } = require('./controllers/PostController.js');
 const { logout } = require('./controllers/UserController.js');
-const session = require('express-session');
 const PostModel = require('./models/Post.js');
 
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 5000, })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 5000 })
   .then(() => {
     console.log('DB connection successful');
   })
