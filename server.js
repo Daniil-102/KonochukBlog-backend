@@ -63,7 +63,7 @@ app.delete('/posts/:id', checkAuth, remove)
 app.patch('/posts/:id', postCreateValidation, checkAuth, handleValidationErrors, update)
 
 
-app.listen(3003, (err) => {
+app.listen(process.env.PORT || 3004, (err) => {
     if (err) console.log(err)
     console.log(`server started`);
 })
