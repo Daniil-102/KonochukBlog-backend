@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
+const MongoStore = require('connect-mongo')(session);
+
 const {
   registerValidation,
   loginValidation,
@@ -43,6 +45,14 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 
 const app = express();
 app.use(express.json());
+app.use(
+  session({
+    secret: 'secret123',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+);
 app.use('/uploads', express.static('uploads'));
 app.use(cors());
 app.use(
