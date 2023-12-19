@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
-const MongoStore = require('connect-mongo')(session);
+const connectMongoDBSession = require('connect-mongodb-session');
+
 
 const {
   registerValidation,
@@ -45,14 +46,21 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
 const app = express();
 app.use(express.json());
 
+const MongoDBStore = connectMongoDBSession(session);
+
 app.use(
   session({
     secret: 'secret123',
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: new MongoDBStore({
+      uri: process.env.MONGODB_URI,
+      collection: 'sessions',
+      mongooseConnection: mongoose.connection
+    }),
   })
 );
+
 app.use('/uploads', express.static('uploads'));
 app.use(cors());
 
