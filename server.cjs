@@ -75,11 +75,11 @@ const storage = multer.diskStorage({
   }
 });
 
-app.use('/uploads', express.static('uploads'));
 app.use(cors());
 
-
 const upload = multer({ storage });
+
+app.use('/uploads', express.static('uploads'));
 
 app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
