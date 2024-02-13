@@ -85,12 +85,7 @@ app.post('/upload', checkAuth, upload.single('image'), (req, res) => {
   res.json({
     url: `/uploads/${req.file.originalname}`
   });
-});
-app.post('/uploads', upload.single('image'), (req, res) => {
-  res.json({
-    url: `/uploads/${req.file.originalname}`
-  });
-});
+})
 
 app.post('/auth/login', loginValidation, handleValidationErrors, login);
 app.post('/auth/logout', checkAuth, logout);
