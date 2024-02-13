@@ -4,6 +4,7 @@ const multer = require('multer');
 const cors = require('cors');
 const session = require('express-session');
 const connectMongoDBSession = require('connect-mongodb-session');
+const fs = require('fs')
 
 
 const {
@@ -62,17 +63,21 @@ app.use(
   })
 );
 
-app.use('/uploads', express.static('uploads'));
-app.use(cors());
-
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
+    if (!fs.existsSync('uploads')) {
+      fs.mkdirSync('uploads')
+    }
     cb(null, 'uploads');
   },
   filename: (_, file, cb) => {
     cb(null, file.originalname);
   }
 });
+
+app.use('/uploads', express.static('uploads'));
+app.use(cors());
+
 
 const upload = multer({ storage });
 
