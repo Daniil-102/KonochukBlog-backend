@@ -77,7 +77,7 @@ const storage = multer.diskStorage({
 
 app.use(cors());
 
-const upload = multer({ storage });
+const upload = multer({ storage, cleanup: false });
 
 app.use('/uploads', express.static('uploads'));
 
