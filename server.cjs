@@ -34,7 +34,6 @@ const {
   getPopular
 } = require('./controllers/PostController.js');
 const { logout } = require('./controllers/UserController.js');
-const PostModel = require('./models/Post.js');
 
 mongoose.connect(process.env.MONGODB_URI,
  { useNewUrlParser: true, useUnifiedTopology: true, serverSelectionTimeoutMS: 5000 })
@@ -47,21 +46,8 @@ mongoose.connect(process.env.MONGODB_URI,
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
-const MongoDBStore = connectMongoDBSession(session);
-
-app.use(
-  session({
-    secret: 'secret123',
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoDBStore({
-      uri: process.env.MONGODB_URI,
-      collection: 'sessions',
-      mongooseConnection: mongoose.connection
-    }),
-  })
-);
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
@@ -75,7 +61,6 @@ const storage = multer.diskStorage({
   }
 });
 
-app.use(cors());
 
 const upload = multer({ storage, cleanup: false });
 
